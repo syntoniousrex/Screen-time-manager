@@ -64,7 +64,7 @@ img { display: block; max-width: 100%; }
 .site-nav a,
 .site-footer nav a {
   font-family: "DM Mono", monospace;
-  font-size: .67rem;
+  font-size: .8125rem;
   letter-spacing: .04em;
   text-transform: uppercase;
   transition: color .2s ease;

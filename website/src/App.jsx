@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import posthog from "./posthog.js";
 
 const storeUrl = "https://chromewebstore.google.com/detail/saturn-screen-time-manage/pecaajdaecdmikcgfdgldcofdebhfbgo";
@@ -95,6 +95,22 @@ function StoreButton({ location }) {
   return <a className="store-button" href={storeUrl} onClick={() => trackStore(location)} target="_blank" rel="noreferrer"><span className="chrome-logo-image" aria-hidden="true" /><span>Add to Chrome</span></a>;
 }
 
+function BenefitCell({ id, label, description, icon }) {
+  const [expanded, setExpanded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const open = expanded || hovered;
+
+  return <article data-expanded={open} onPointerEnter={(event) => {
+    if (event.pointerType === "mouse" && window.matchMedia("(min-width: 781px)").matches) setHovered(true);
+  }} onPointerLeave={() => setHovered(false)}>
+    <h2><button className="benefit-toggle" type="button" aria-expanded={open} aria-controls={`benefit-${id}`} onClick={() => setExpanded((value) => !value)}>
+      <span className="benefit-summary"><span aria-hidden="true"><BenefitIcon icon={icon} /></span><span>{label}</span><span className="orange-rule" aria-hidden="true" /></span>
+      <span className="benefit-disclosure" aria-hidden="true">{open ? "−" : "+"}</span>
+    </button></h2>
+    <p className="benefit-description" id={`benefit-${id}`} hidden={!open}>{description}</p>
+  </article>;
+}
+
 function SketchArrow({ direction }) {
   const pointsRight = direction === "right";
   return <svg className={`walkthrough-arrow walkthrough-arrow--${direction}`} viewBox="0 0 190 74" aria-hidden="true">
@@ -171,7 +187,7 @@ export default function App() {
     </section>
 
     <section className="benefit-strip" aria-label="Saturn features">
-      {benefits.map(([key, label, description, icon]) => <article key={key} tabIndex="0"><div className="benefit-summary"><BenefitIcon icon={icon} /><h2>{label}</h2><span className="orange-rule" /></div><p className="benefit-description">{description}</p></article>)}
+      {benefits.map(([key, label, description, icon]) => <BenefitCell key={key} id={key} label={label} description={description} icon={icon} />)}
     </section>
 
     <ProductWalkthrough />
