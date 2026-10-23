@@ -1,5 +1,6 @@
-import posthog from "posthog-js";
-import "posthog-js/dist/exception-autocapture";
+// Production permits only same-origin scripts. Bundle the recorder and other
+// extensions so replay doesn't stall on a CSP-blocked CDN script request.
+import posthog from "posthog-js/dist/module.full.no-external";
 
 const token = import.meta.env.VITE_PUBLIC_POSTHOG_KEY;
 const apiHost = import.meta.env.VITE_PUBLIC_POSTHOG_HOST;

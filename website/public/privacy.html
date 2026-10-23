@@ -6,7 +6,7 @@
   <title>Privacy - Saturn</title>
   <meta
     name="description"
-    content="Saturn only tracks the activity needed to provide website blocking, limits, and usage stats."
+    content="How Saturn handles local browsing statistics, Whop sign-in, purchase verification, analytics, and your data controls."
   />
   <link rel="icon" href="/planets/saturn-app-icon-128.png" />
   <link rel="stylesheet" href="/editorial-pages.css" />
@@ -34,48 +34,190 @@
       <div class="page-hero__copy">
         <span class="section-number">Privacy</span>
         <span class="orange-rule" aria-hidden="true"></span>
-        <h1>Simple tracking for simple website limits.</h1>
+        <h1>Your focus.<br />Your privacy.</h1>
         <p>
-          Saturn only tracks the activity needed to provide website blocking,
-          limits, schedules, and basic usage stats.
+          Your browsing statistics stay in your browser. Signing in to restore Pro
+          and using Saturn's website involve separate services, explained below.
         </p>
+        <p>Last updated <time datetime="2026-10-22">October 22, 2026</time>.</p>
       </div>
     </section>
 
     <section class="page-content">
       <article>
         <span class="entry-number">01</span>
-        <h2>What the extension tracks</h2>
-        <div class="entry-copy"><p>
-            The extension tracks domain-level activity, time spent on configured sites, visit counts,
-            blocked attempts, snoozes, and settings needed to enforce your limits.
-        </p></div>
+        <h2>Browsing data in your browser</h2>
+        <div class="entry-copy">
+          <p>
+            Saturn tracks the active website's domain, time spent, visits, repeated returns,
+            blocked attempts, snoozes, and the limits, schedules, and preferences you choose.
+            It uses this information to enforce blocks and create your summaries and usage charts.
+          </p>
+          <p>
+            These browsing records and settings are stored in your Chrome profile. They are
+            not uploaded as a browsing history or synced through a Saturn account. The extension
+            does not read the contents of the websites you visit, passwords, or form entries.
+          </p>
+        </div>
       </article>
       <article>
         <span class="entry-number">02</span>
-        <h2>What it is for</h2>
-        <div class="entry-copy"><p>
-            This data is used to block distracting websites, show daily usage stats, enforce scheduled
-            focus blocks, and help you understand where your attention is going.
-        </p></div>
+        <h2>Whop sign-in and Pro purchases</h2>
+        <div class="entry-copy">
+          <p>
+            If you choose Sign in / Restore purchase, Whop asks you to approve access to basic
+            profile information. Saturn uses your Whop account ID to check whether that account
+            has access to the Saturn product. Browsing records are not sent to Whop for this check.
+          </p>
+          <p>
+            Saturn's backend, hosted by Cloudflare, processes the sign-in response and stores
+            your Whop account ID, extension ID, purchase-access status, and temporary session
+            records. The extension stores a Saturn session credential so it can recheck access
+            without asking you to sign in each time. Whop access and refresh tokens are not
+            retained by Saturn.
+          </p>
+          <p>
+            Whop handles checkout, payment details, purchase records, and billing management.
+            Whop sends signed purchase-status notifications to Saturn so access can reflect
+            membership, payment, refund, or dispute changes. Saturn does not receive your
+            Whop password or full payment-card details.
+          </p>
+        </div>
       </article>
       <article>
         <span class="entry-number">03</span>
-        <h2>What it is not for</h2>
-        <div class="entry-copy"><ul>
-            <li>No selling user data.</li>
-            <li>No unnecessary tracking.</li>
-            <li>No broad surveillance of everything you do online.</li>
-            <li>No shame-based scoring or public sharing.</li>
-        </ul></div>
+        <h2>Extension analytics</h2>
+        <div class="entry-copy">
+          <p>
+            The Chrome Web Store version sends product-usage events through Cloudflare to
+            PostHog. These include opening the popup, creating a limit or schedule, seeing a
+            block, using a summary, onboarding steps, and upgrade-button clicks. Events can
+            include the extension version, general counts, and whether features have been set up.
+          </p>
+          <p>
+            A randomly generated installation identifier lets us understand repeat use and
+            reliability. It is separate from your Whop account and is not linked to it by
+            Saturn. Analytics events exclude the domains you visit, full browsing URLs,
+            browsing-history records, page contents, and your Whop credentials.
+          </p>
+          <p>
+            These events help us find problems and understand which features are useful.
+            Unpacked development copies do not send extension analytics. The extension
+            does not record your screen or create session replays of your browsing.
+          </p>
+        </div>
       </article>
       <article>
         <span class="entry-number">04</span>
-        <h2>User control</h2>
-        <div class="entry-copy"><p>
-            You choose the sites, limits, and schedules. You can adjust or remove distracting domains
-            from the extension settings when your focus rules need to change.
+        <h2>Website analytics and storage</h2>
+        <div class="entry-copy">
+          <p>
+            The Saturn website uses PostHog to understand page visits, clicks, referrals,
+            browser and device information, and technical errors. When enabled, website
+            session replay can record interactions with Saturn's own pages, such as clicks
+            and scrolling. It does not record other websites or the extension's pages.
+          </p>
+          <p>
+            Website analytics can use cookies or local storage to remember a browser or
+            session. You can <a href="/?analytics=off">turn off PostHog website analytics
+            in this browser</a>, or <a href="/?analytics=on">turn it back on</a>.
+            Clearing browser storage also clears this preference. This choice applies to
+            website PostHog analytics, separately from extension analytics.
+          </p>
+          <p>
+            Vercel hosts the website and provides Speed Insights to measure page performance.
+            Hosting and security providers receive ordinary connection information, including
+            IP addresses, browser information, request paths, and timestamps, when you connect
+            to the website or purchase-verification service.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span class="entry-number">05</span>
+        <h2>Services that process data</h2>
+        <div class="entry-copy"><ul>
+          <li><a href="https://whop.com/privacy/" target="_blank" rel="noreferrer">Whop</a>
+            processes sign-in, checkout, purchases, and billing.</li>
+          <li><a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">Cloudflare</a>
+            hosts purchase verification, temporary billing records, analytics forwarding, and service logs.</li>
+          <li><a href="https://posthog.com/privacy" target="_blank" rel="noreferrer">PostHog</a>
+            processes the extension and website analytics described above.</li>
+          <li><a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Vercel</a>
+            hosts the website and processes website-performance measurements.</li>
+          <li>If you choose our Feedback link, SurveyMonkey processes the information you
+            submit through that separate service. Do not include passwords or payment details.</li>
+        </ul>
+        <p>
+          These providers may process data outside your country under their own terms and
+          privacy policies. Saturn does not sell your data or use your browsing records
+          for advertising.
         </p></div>
+      </article>
+      <article>
+        <span class="entry-number">06</span>
+        <h2>Retention and security</h2>
+        <div class="entry-copy">
+          <p>
+            Local browsing records remain subject to the extension's history limits and
+            your deletion choices. Unsent extension analytics are capped at 250 events
+            and expire after 14 days.
+          </p>
+          <p>
+            Server-side sign-in attempts expire after ten minutes; checkout-return records
+            after two hours; cached purchase checks after five minutes; and webhook retry
+            records after seven days. Saturn sessions expire seven days after their last
+            successful renewal. Expired temporary billing records are scheduled for deletion.
+          </p>
+          <p>
+            Provider-held analytics, payment records, and operational logs follow the
+            applicable service's retention settings and obligations; clearing the extension
+            does not automatically remove those records. Connections to Saturn's backend
+            use HTTPS, server credentials remain on the backend, and session credentials
+            are excluded from extension data exports.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span class="entry-number">07</span>
+        <h2>Your choices and deletion</h2>
+        <div class="entry-copy">
+          <p>
+            Settings lets you export your local data, delete usage history, delete local
+            analytics data, or delete all local Saturn data. Delete All Data also removes
+            the saved Saturn sign-in credential. It does not cancel a Whop purchase,
+            delete your Whop account, or immediately delete server-side records.
+          </p>
+          <p>
+            Deleting local analytics data resets the installation identifier and queued
+            events. It is not a permanent analytics opt-out: a new identifier can be created
+            while the extension is enabled. Disabling or removing Saturn stops its activity
+            tracking and future extension analytics.
+          </p>
+          <p>
+            Manage purchases through Whop. For questions or requests about data Saturn
+            holds, use the <a href="https://www.surveymonkey.com/r/QF2RJ58" target="_blank"
+            rel="noreferrer">Feedback form</a> and identify your request as a privacy request.
+            We may need enough information to verify the request. Please never send a
+            sign-in token, password, or full card number.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span class="entry-number">08</span>
+        <h2>Limited use and updates</h2>
+        <div class="entry-copy">
+          <p>
+            Information received through Chrome APIs is used to provide and improve Saturn's
+            disclosed features in accordance with the Chrome Web Store User Data Policy,
+            including its Limited Use requirements. It is not sold or used for personalized
+            advertising.
+          </p>
+          <p>
+            We update this page when Saturn's data practices change. The date above identifies
+            the current version; material changes will also be explained in the app or its
+            release information.
+          </p>
+        </div>
       </article>
     </section>
   </main>
