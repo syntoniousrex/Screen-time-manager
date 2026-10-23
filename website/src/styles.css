@@ -96,6 +96,14 @@
 @media(min-width:781px){
   .benefit-strip article[data-expanded="true"] .benefit-summary{transform:translateY(-32px)}
   .benefit-description{position:absolute;top:calc(50% + 22px);right:24px;left:24px;max-width:none}
+  .benefit-strip article[data-expanded="true"] .benefit-description{animation:benefit-description-reveal .32s cubic-bezier(.22,1,.36,1) both}
+}
+@keyframes benefit-description-reveal{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .benefit-strip article[data-expanded="true"] .benefit-description{animation:none}
 }
 @media(max-width:980px){
   .site-header{grid-template-columns:1fr auto}
