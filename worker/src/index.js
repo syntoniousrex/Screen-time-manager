@@ -803,7 +803,7 @@ function buildPostHogCaptureUrl(env) {
     return `${host}/i/v0/e/`;
 }
 
-async function sendPostHogEvent(env, { clientId, eventId, eventName, params, extensionId }) {
+async function sendPostHogEvent(env, { clientId, eventId, eventName, params, extensionId, userAgent }) {
     const apiKey = String(env.POSTHOG_PROJECT_API_KEY || "").trim();
     const captureUrl = buildPostHogCaptureUrl(env);
     if (!apiKey || !captureUrl) {
@@ -825,6 +825,7 @@ async function sendPostHogEvent(env, { clientId, eventId, eventName, params, ext
             properties: {
                 "$process_person_profile": false,
                 ...(eventId ? { "$insert_id": eventId } : {}),
+                ...(userAgent ? { "$raw_user_agent": userAgent } : {}),
                 analytics_source: "saturn_extension",
                 extension_id: normalizedExtensionId,
                 ...params
@@ -1422,6 +1423,7 @@ export default {
             eventId,
             eventName: "blocked_page_view",
             extensionId: analyticsSkip.extensionId,
+            userAgent: sanitizeAnalyticsText(request.headers.get("User-Agent"), "", 512),
             params: {
                 ...blockEventPayload.params
             }
@@ -1505,6 +1507,7 @@ export default {
             eventId,
             eventName,
             extensionId: analyticsSkip.extensionId,
+            userAgent: sanitizeAnalyticsText(request.headers.get("User-Agent"), "", 512),
             params
         }).catch((error) => ({ ok: false, error: error instanceof Error ? error.message : "Unknown error" }));
 

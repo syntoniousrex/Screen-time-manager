@@ -62,6 +62,34 @@ test("queued extension events forward their insert id to PostHog", async (t) => 
     assert.equal(capture.properties.block_tier, "strict");
 });
 
+test("extension events forward the browser user agent so PostHog does not classify them as bots", async (t) => {
+    const nativeFetch = globalThis.fetch;
+    const captures = [];
+    t.after(() => {
+        globalThis.fetch = nativeFetch;
+    });
+    globalThis.fetch = async (url, options) => {
+        captures.push({ url: String(url), options });
+        return new Response(null, { status: 200 });
+    };
+    const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36";
+
+    for (const [path, body] of [
+        ["/analytics/event", { eventId: "active-daily-123", eventName: "extension_active_daily" }],
+        ["/analytics/block-event", { eventId: "legacy-block-event-456", source: "limit", tier: "strict" }]
+    ]) {
+        const request = analyticsRequest(path, body);
+        request.headers.set("user-agent", userAgent);
+        const response = await worker.fetch(request, analyticsEnv());
+        assert.equal(response.status, 200);
+    }
+
+    assert.equal(captures.length, 2);
+    for (const { options } of captures) {
+        assert.equal(JSON.parse(options.body).properties.$raw_user_agent, userAgent);
+    }
+});
+
 test("legacy blocked-page endpoint remains compatible with older releases", async (t) => {
     const nativeFetch = globalThis.fetch;
     const captures = [];

@@ -157,6 +157,7 @@ Blocked-page redirects and extension actions can be tracked with PostHog through
 - Analytics are sent only from the production Chrome Web Store extension ID; unpacked/internal extension IDs are skipped before they reach PostHog.
 - No PostHog project key is stored in the extension.
 - Events are sent with `$process_person_profile: false` so PostHog does not create person profiles for anonymous extension installs.
+- The Worker forwards the browser's `User-Agent` header as `$raw_user_agent`. Without it, PostHog classifies all extension events as bot traffic (`no_user_agent`).
 
 To enable it:
 
