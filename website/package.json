@@ -9,7 +9,7 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
-    "posthog-js": "^1.407.5",
+    "posthog-js": "^1.444.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
